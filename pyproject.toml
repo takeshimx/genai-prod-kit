@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=60"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "genai-prod-kit"
+version = "0.1.0"
+description = "Production harness for shipping LLM features: gateway, prompt registry, eval gate, PII redaction, drift monitoring."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "takeshimx" }]
+keywords = ["llm", "genai", "observability", "eval", "pii", "drift"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = []
+
+[project.optional-dependencies]
+gemini = ["google-genai"]
+openai = ["openai"]
+ner = ["spacy"]
+bigquery = ["google-cloud-bigquery"]
+dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/takeshimx/genai-prod-kit"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+# プロンプトの .txt と golden の .jsonl を同梱する
+genai_prod_kit = ["prompts/**/*.txt", "evals/golden/*.jsonl"]

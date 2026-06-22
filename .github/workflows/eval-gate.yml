@@ -1,0 +1,25 @@
+name: eval-gate
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  eval-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install (dev deps only, no vendor SDK)
+        run: pip install -e ".[dev]"
+
+      - name: Regression gate (compares last 2 eval runs, no API call)
+        run: PYTHONPATH=src python -m genai_prod_kit.evals.gate eval_runs.jsonl
+
+      - name: Gate unit tests
+        run: PYTHONPATH=src python -m pytest tests/test_gate.py -q
