@@ -30,9 +30,12 @@ htmlcov/
 *.jsonl
 *.sqlite
 *.db
-# ...but these jsonl are source, not generated output — keep them tracked:
-!eval_runs.jsonl                 # regression-gate input (CI reads this)
-!src/genai_prod_kit/evals/golden/*.jsonl  # eval golden sets
+# ...but these jsonl are source, not generated output — keep them tracked.
+# (no inline comments below: gitignore treats them as part of the pattern)
+# regression-gate input (CI reads this):
+!eval_runs.jsonl
+# eval golden sets:
+!src/genai_prod_kit/evals/golden/*.jsonl
 
 # Jupyter
 .ipynb_checkpoints/
